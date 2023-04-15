@@ -38,10 +38,10 @@ class AffineCipher:
         return plaintext
 
 
-    @staticmethod
-    def crack_cipher(plaintext, ciphertext):
-        p = plaintext[0].lower()
-        c = ciphertext[0].lower()
-        key = (ord(c) - ord(p)) % 26
-        return key
+    # @staticmethod
+    # def crack_cipher(plaintext, ciphertext):
+    #     p = plaintext[0].lower()
+    #     c = ciphertext[0].lower()
+    #     key = (ord(c) - ord(p)) % 26
+    #     return key
 

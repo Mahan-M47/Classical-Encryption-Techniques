@@ -42,8 +42,10 @@ if __name__ == "__main__":
     # print(cipher.encipher('shesellsa'))
     # print(cipher.decipher('KJMEYXJZUX'))
 
-    cipher = AffineCipher((3,3))
-    print(cipher.encipher("abcd"))
-    print(cipher.decipher("DGJM"))
+    # cipher = AffineCipher((5,13))
+    # print(cipher.encipher("abcd"))
+    # print(cipher.decipher("NSXC"))
+
+    print(AffineCipher.crack_cipher('abcd', 'NSXC'))
 
     main()

@@ -69,6 +69,9 @@ class AffineCipher:
         # Solve the system of equations
         X = np.linalg.solve(A, B)
 
+        X[0] %= 26
+        X[1] %= 26
+
         key = (int(X[0]), int(X[1]))
         return key
 

@@ -22,7 +22,7 @@ def playfair_cipher():
 
 
 def main():
-    pass
+    print("Choose Cipher")
 
 
 if __name__ == "__main__":
@@ -46,6 +46,7 @@ if __name__ == "__main__":
     # print(cipher.encipher("abcd"))
     # print(cipher.decipher("NSXC"))
 
-    print(AffineCipher.crack_cipher('abcd', 'NSXC'))
+    # print(AffineCipher.crack_cipher('abcd', 'NSXC'))
+    # print(HillCipher.crack_cipher("shesellsa", "TYBWKTTRR", 3))
 
     main()

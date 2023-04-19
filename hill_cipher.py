@@ -10,6 +10,7 @@ class HillCipher:
 
         if self.is_key_valid():
             self.inverse_key = np.array( sp.Matrix(self.key).inv_mod(26) )
+            print(self.inverse_key)
         else:
             raise Exception("Invalid key")
 
@@ -65,7 +66,19 @@ class HillCipher:
 
 
     @staticmethod
-    def crack_cipher(plaintext, ciphertext):
+    def crack_cipher(plaintext, ciphertext, key_dimension):
+        plaintext, ciphertext = plaintext.lower(), ciphertext.lower()
 
-        return key
+        A = np.zeros((key_dimension, key_dimension)).astype('int')
+        B = np.zeros((key_dimension, key_dimension)).astype('int')
+
+        for i in range(key_dimension):
+            for j in range(key_dimension):
+                A[i][j] = ord(plaintext[i*key_dimension + j]) - ord('a')
+                B[i][j] = ord(ciphertext[i*key_dimension + j]) - ord('a')
+
+        # Solve the system of equations
+        A_inverse = np.array( sp.Matrix(A).inv_mod(26) )
+        X = np.matmul(A_inverse, B) % 26
+        return X
 

@@ -1,6 +1,7 @@
 
 import sympy as sp
 import numpy as np
+import re
 from math import gcd
 
 
@@ -10,11 +11,15 @@ class AffineCipher:
         if not self.is_key_valid():
             raise Exception("Invalid key. in \"ax + b\" , a must be coprime with 26.")
 
+
     def is_key_valid(self):
         return gcd(self.key[0], 26) == 1
 
+
     def encipher(self, plaintext):
         plaintext = plaintext.lower()
+        plaintext = re.sub("[^a-z]+", "", plaintext)
+
         ciphertext = ""
 
         a = self.key[0]
@@ -27,19 +32,21 @@ class AffineCipher:
 
         return ciphertext.upper()
 
+
     def decipher(self, ciphertext):
         ciphertext = ciphertext.lower()
         plaintext = ""
 
-        a_1 = sp.mod_inverse(self.key[0], 26)
+        a_inverse = sp.mod_inverse(self.key[0], 26)
         b = self.key[1]
 
         for letter in ciphertext:
-            letter_num = ord(letter) - ord('a')               # the ascii number of 'a' is 97
-            letter_num = a_1*(letter_num - b) % 26
+            letter_num = ord(letter) - ord('a')
+            letter_num = a_inverse*(letter_num - b) % 26
             plaintext += chr(letter_num + ord('a'))
 
         return plaintext
+
 
     @staticmethod
     def crack_cipher(plaintext, ciphertext):
@@ -67,7 +74,8 @@ class AffineCipher:
         B = np.array([c_1, c_2])  # Constants vector
 
         # Solve the system of equations
-        X = np.linalg.solve(A, B)
+        A_inverse = np.array(sp.Matrix(A).inv_mod(26))
+        X = np.matmul(A_inverse, B) % 26
 
         X[0] %= 26
         X[1] %= 26

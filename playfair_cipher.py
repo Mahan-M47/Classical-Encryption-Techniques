@@ -1,14 +1,15 @@
 
 import re
 
-alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-            'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-
 
 class PlayfairCipher:
+
+    alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
     def __init__(self, key):
         self.key = key.lower()
-        self.alphabet = alphabet.copy()
+        self.alphabet = self.alphabet.copy()
 
         if self.is_key_valid():
             self.key_matrix = self.generate_key_matrix()
@@ -75,6 +76,8 @@ class PlayfairCipher:
 
     def encipher(self, plaintext):
         plaintext = plaintext.lower()
+        plaintext = re.sub("[^a-z]+", "", plaintext)
+
         if 'i' in self.alphabet:
             plaintext = re.sub('j', 'i', plaintext)
         else:
